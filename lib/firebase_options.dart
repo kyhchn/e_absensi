@@ -63,6 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '534619492686',
     projectId: 'e-absensi-7bc82',
     storageBucket: 'e-absensi-7bc82.appspot.com',
+    androidClientId: '534619492686-aed67vdq26r0vl9bh2n8fhi1aiin1uad.apps.googleusercontent.com',
+    iosClientId: '534619492686-0f8u4h7jpbuc89h31r2gpuf3k0h3ptel.apps.googleusercontent.com',
     iosBundleId: 'com.example.eAbsensi',
   );
 }
