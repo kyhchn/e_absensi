@@ -6,8 +6,10 @@ class UserProvider {
     await firestore.collection('users').doc(user.id).set(user.toJson());
   }
 
-  Future<EabsensiUser?> getUser(String id) async {
-    final user = await firestore.collection('users').doc(id).get();
+  Future<EabsensiUser?> getUser() async {
+    final uid = auth.currentUser?.uid;
+    if (uid == null) return null;
+    final user = await firestore.collection('users').doc(uid).get();
     if (user.exists) {
       return EabsensiUser.fromJson(user.data() as Map<String, dynamic>);
     }
@@ -20,5 +22,16 @@ class UserProvider {
 
   Future<void> updatePin(String pin, String id) async {
     await firestore.collection('users').doc(id).update({'pin': pin});
+  }
+
+  Future<void> addSubject(String pin) async {
+    final user = await getUser();
+    if (user == null) return;
+    if (user.subjects.contains(pin)) return;
+    user.subjects.add(pin);
+    await firestore
+        .collection('users')
+        .doc(user.id)
+        .update({'subjects': user.subjects});
   }
 }

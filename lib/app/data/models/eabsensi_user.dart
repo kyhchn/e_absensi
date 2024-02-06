@@ -1,20 +1,18 @@
 class EabsensiUser {
   final String id;
   final String name;
-  final Gender gender;
   final String nim;
   final String email;
   String pin;
-  final String dateOfBirth;
+  List<String> subjects;
 
   EabsensiUser({
     required this.id,
     required this.name,
     required this.nim,
     required this.email,
-    required this.gender,
     required this.pin,
-    required this.dateOfBirth,
+    required this.subjects,
   });
 
   factory EabsensiUser.fromJson(Map<String, dynamic> json) {
@@ -24,8 +22,7 @@ class EabsensiUser {
         nim: json['nim'],
         email: json['email'],
         pin: json['pin'],
-        dateOfBirth: json['dateOfBirth'],
-        gender: json['gender']);
+        subjects: List<String>.from(json['subjects']));
   }
 
   Map<String, dynamic> toJson() {
@@ -35,10 +32,7 @@ class EabsensiUser {
       'nim': nim,
       'email': email,
       'pin': pin,
-      'dateOfBirth': dateOfBirth,
-      'gender': gender
+      'subjects': subjects,
     };
   }
 }
-
-enum Gender { male, female }
