@@ -80,7 +80,7 @@ class SigninView extends GetView<SigninController> {
                       () => DefaultButton(
                         onPressed: controller.login,
                         type: Type.primary,
-                        child: controller.isLoading.value
+                        child: controller.isLoginLoading.value
                             ? const SizedBox(
                                 width: 16,
                                 height: 16,
@@ -109,17 +109,27 @@ class SigninView extends GetView<SigninController> {
                     child: DefaultButton(
                       onPressed: controller.loginWithGoogle,
                       type: Type.secondary,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset('assets/images/google.svg',
-                              height: 16, width: 16),
-                          const SizedBox(
-                            width: 16,
-                          ),
-                          const Text('Masuk dengan Google')
-                        ],
+                      child: Obx(
+                        () => controller.isGoogleLoading.value
+                            ? const SizedBox(
+                                width: 16,
+                                height: 16,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              )
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset('assets/images/google.svg',
+                                      height: 16, width: 16),
+                                  const SizedBox(
+                                    width: 16,
+                                  ),
+                                  const Text('Masuk dengan Google')
+                                ],
+                              ),
                       ),
                     )),
                 const SizedBox(
@@ -131,7 +141,7 @@ class SigninView extends GetView<SigninController> {
                       () => DefaultButton(
                         onPressed: controller.registerWithEmailAndPassword,
                         type: Type.primary,
-                        child: controller.isLoading.value
+                        child: controller.isRegisterLoading.value
                             ? const SizedBox(
                                 width: 16,
                                 height: 16,

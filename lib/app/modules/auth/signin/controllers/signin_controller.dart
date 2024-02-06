@@ -7,7 +7,9 @@ class SigninController extends GetxController {
   final key = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final isLoading = false.obs;
+  final isRegisterLoading = false.obs;
+  final isLoginLoading = false.obs;
+  final isGoogleLoading = false.obs;
 
   final authRepo = Get.find<AuthRepository>();
 
@@ -30,7 +32,7 @@ class SigninController extends GetxController {
   void increment() => count.value++;
 
   void login() async {
-    isLoading.value = true;
+    isLoginLoading.value = true;
     try {
       if (!key.currentState!.validate()) return;
       final email = emailController.text;
@@ -40,22 +42,22 @@ class SigninController extends GetxController {
       Get.snackbar('Error', e.message ?? 'Error',
           snackPosition: SnackPosition.BOTTOM);
     }
-    isLoading.value = false;
+    isLoginLoading.value = false;
   }
 
   void loginWithGoogle() async {
-    isLoading.value = true;
+    isGoogleLoading.value = true;
     try {
       await authRepo.loginWithGoogleSSO();
     } on FirebaseAuthException catch (e) {
       Get.snackbar('Error', e.message ?? 'Error',
           snackPosition: SnackPosition.BOTTOM);
     }
-    isLoading.value = false;
+    isGoogleLoading.value = false;
   }
 
   void registerWithEmailAndPassword() async {
-    isLoading.value = true;
+    isRegisterLoading.value = true;
     try {
       if (!key.currentState!.validate()) return;
       final email = emailController.text;
@@ -65,6 +67,6 @@ class SigninController extends GetxController {
       Get.snackbar('Error', e.message ?? 'Error',
           snackPosition: SnackPosition.BOTTOM);
     }
-    isLoading.value = false;
+    isRegisterLoading.value = false;
   }
 }
